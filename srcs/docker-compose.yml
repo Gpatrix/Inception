@@ -1,10 +1,27 @@
 name: Inception
 
 services:
-  nginx:
-    container_name: nginx
-    build: 
-      context: ./requirements/nginx
-      dockerfile: Dockerfile
-    ports:
-      - 443:443
+    nginx:
+        container_name: nginx
+        restart: always
+        build:
+            context: ./requirements/nginx
+            dockerfile: Dockerfile
+        networks:
+            - wordpress-nginx
+        ports:
+            - 443:443
+
+    # wordpress:
+    #     container_name: wordpress
+    #     # restart: always
+    #     build:
+    #         context: ./requirements/wordpress
+    #         dockerfile: Dockerfile
+    #     networks:
+    #         - wordpress-nginx
+
+
+networks:
+    wordpress-nginx:
+        driver: bridge
