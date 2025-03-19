@@ -5,16 +5,22 @@ WORKDIR /usr/src/Inception
 RUN apk update
 RUN apk add nginx
 
+
+# TODO for debug
+RUN apk add zsh git curl
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 COPY . .
 
 COPY index.html /data/www/
 COPY index.html /data/up1/
-COPY nginx.conf /usr/local/nginx/conf/
+COPY nginx.conf /etc/nginx/
 
 
 # reload config fil
-# RUN nginx -s reload
 
 EXPOSE 443
-# ENTRYPOINT ["ls", "-alR"]
+
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+# RUN nginx -s reload
