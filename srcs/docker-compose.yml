@@ -11,6 +11,7 @@ services:
             - wordpress-nginx
         ports:
             - 443:443
+        env_file: .env
 
     # wordpress:
     #     container_name: wordpress
@@ -32,9 +33,8 @@ services:
         networks:
             - wordpress-nginx
         volumes:
-            - db-data:/var/lib/mysql
-        environment:
-            MARIADB_ROOT_PASSWORD: 1234
+            - db-data:/sys/fs/cgroup/
+        env_file: .env
 
 networks:
     wordpress-nginx:
