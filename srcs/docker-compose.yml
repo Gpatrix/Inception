@@ -23,18 +23,18 @@ services:
     #         - mariadb-wordpress
 
 
-    # mariadb:
-    #     container_name: mariadb
-    #     # restart: always
-    #     build:
-    #         context: ./requirements/mariadb
-    #         dockerfile: Dockerfile
-    #     networks:
-    #         - wordpress-nginx
-    #     volumes:
-    #         - db-data:/sys/fs/cgroup
-    #     environment:
-    #         MARIADB_ROOT_PASSWORD: 1234
+    mariadb:
+        container_name: mariadb
+        # restart: always
+        build:
+            context: ./requirements/mariadb
+            dockerfile: Dockerfile
+        networks:
+            - wordpress-nginx
+        volumes:
+            - db-data:/var/lib/mysql
+        environment:
+            MARIADB_ROOT_PASSWORD: 1234
 
 networks:
     wordpress-nginx:
