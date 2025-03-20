@@ -3,10 +3,10 @@ FROM alpine:3.20
 WORKDIR /usr/src/Inception  
 
 RUN apk update
-RUN apk add lighttpd php82 fcgi php82-cgi wget
+RUN apk add lighttpd php82 fcgi php82-cgi wget --no-cache
 
 # TODO only for debug
-RUN apk add zsh git curl
+RUN apk add zsh git curl --no-cache
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 COPY . .
