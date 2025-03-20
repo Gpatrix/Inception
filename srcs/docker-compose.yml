@@ -1,4 +1,3 @@
-version: '3.8'
 name: Inception
 
 services:
@@ -12,9 +11,6 @@ services:
     #         - wordpress-nginx
     #     ports:
     #         - 443:443
-    #     environment:
-    #         - DOMAIN_NAME = ${DOMAIN_NAME:?}
-    #         - NAME = ${NAME:?}
 
 
     wordpress:
@@ -27,20 +23,22 @@ services:
             - wordpress-nginx
             - mariadb-wordpress
 
-    # mariadb:
-    #     container_name: mariadb
-    #     # restart: always
-    #     build:
-    #         context: ./requirements/mariadb
-    #         dockerfile: Dockerfile
-    #     networks:
-    #         - wordpress-nginx
-    #     volumes:
-    #         - db-data:/sys/fs/cgroup/
-    #     environment:
-    #         - SQL_DATABASE = ${SQL_DATABASE:?}
-    #         - SQL_USER = ${SQL_USER:?}
-    #         - SQL_PASSWORD = ${SQL_PASSWORD:?}
+    mariadb:
+        container_name: mariadb
+        # restart: always
+        build:
+            context: ./requirements/mariadb
+            dockerfile: Dockerfile
+        networks:
+            - wordpress-nginx
+        volumes:
+            - db-data:/sys/fs/cgroup/
+        environment:
+            - ${SQL_DATABASE:?}
+            - ${SQL_USER:?}
+            - ${SQL_PASSWORD:?}
+        env_file:
+            - .env
 
 networks:
     wordpress-nginx:
