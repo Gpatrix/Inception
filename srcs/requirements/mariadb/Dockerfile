@@ -12,15 +12,23 @@ COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 COPY ./tool/table_create.sh .
 COPY ./tool/default.sql .
 
+RUN mkdir -p /var/lib/mysql /run/mysqld
+RUN chown -R mysql:mysql /var/lib/mysql /run/mysqld
 RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+
+RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+
 RUN rc-update add mariadb default
+
+
+RUN chmod +x ./table_create.sh
+
+USER mysql
 
 ARG SQL_USER
 ARG SQL_DATABASE
 ARG SQL_PASSWORD
 
-RUN chmod +rw ./table_create.sh
-RUN sh ./table_create.sh
-
 EXPOSE 3306
-ENTRYPOINT ["mariadb"]
+ENTRYPOINT ["sh", "table_create.sh"]
+# ENTRYPOINT ["mariadb"]
