@@ -15,13 +15,6 @@ RUN openssl req -x509 -nodes \
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir -p /var/run/nginx
-# RUN chmod 755 /var/www/wordpress
-# RUN chown -R www-data:www-data /var/www/wordpress
-
-# COPY . .
-
-# COPY index.html /data/www/
-# COPY nginx.conf /etc/nginx/
 
 EXPOSE 443
 EXPOSE 9000
