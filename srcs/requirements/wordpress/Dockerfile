@@ -3,7 +3,7 @@ FROM alpine:3.20
 WORKDIR /var/www
 
 RUN apk update
-RUN apk add wget php83 php83-fpm php83-mysqli php-phar openssl --no-cache
+RUN apk add wget php83 php83-fpm php83-mysqli php-phar openssl mysql-client --no-cache
 
 ARG WP_FILE="wordpress-6.7.2.tar.gz"
 
@@ -30,8 +30,9 @@ ARG wp_NONCE_SALT
 
 COPY ./conf/php.ini /etc/php82/
 COPY ./conf/wp_config.sh .
-RUN sh wp_config.sh
-RUN rm -f wp_config.sh
+# RUN sh wp_config.sh
+# RUN rm -f wp_config.sh
 
 EXPOSE 9000
+# ENTRYPOINT ["sh", "wp_config.sh"]
 ENTRYPOINT ["/usr/sbin/php-fpm83", "-F"]

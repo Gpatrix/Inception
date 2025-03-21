@@ -16,6 +16,7 @@ clean down:
 
 fclean purge: down
 	docker system prune --all --force --volumes
+	docker volume prune -a -f
 
 re: down all
 

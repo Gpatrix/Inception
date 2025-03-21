@@ -25,22 +25,26 @@ services:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
             args:
-                - DB_NAME = ${DB_NAME:?}
-                - DB_USER = ${DB_USER:?}
-                - DB_PASSWORD = ${DB_PASSWORD:?}
-                - wp_AUTH_KEY = ${wp_AUTH_KEY:?}
-                - wp_SECURE_AUTH_KEY = ${wp_SECURE_AUTH_KEY:?}
-                - wp_LOGGED_IN_KEY = ${wp_LOGGED_IN_KEY:?}
-                - wp_NONCE_KEY = ${wp_NONCE_KEY:?}
-                - wp_AUTH_SALT = ${wp_AUTH_SALT:?}
-                - wp_SECURE_AUTH_SALT = ${wp_SECURE_AUTH_SALT:?}
-                - wp_LOGGED_IN_SALT = ${wp_LOGGED_IN_SALT:?}
-                - wp_NONCE_SALT = ${wp_NONCE_SALT:?}
+                - DB_NAME=${DB_NAME:?}
+                - DB_USER=${DB_USER:?}
+                - DB_PASSWORD=${DB_PASSWORD:?}
+                - wp_AUTH_KEY=${wp_AUTH_KEY:?}
+                - wp_SECURE_AUTH_KEY=${wp_SECURE_AUTH_KEY:?}
+                - wp_LOGGED_IN_KEY=${wp_LOGGED_IN_KEY:?}
+                - wp_NONCE_KEY=${wp_NONCE_KEY:?}
+                - wp_AUTH_SALT=${wp_AUTH_SALT:?}
+                - wp_SECURE_AUTH_SALT=${wp_SECURE_AUTH_SALT:?}
+                - wp_LOGGED_IN_SALT=${wp_LOGGED_IN_SALT:?}
+                - wp_NONCE_SALT=${wp_NONCE_SALT:?}
         networks:
             - wordpress-nginx
             - mariadb-wordpress
         depends_on:
                 - mariadb
+        environment:
+            - DB_NAME=${DB_NAME:?}
+            - DB_USER=${DB_USER:?}
+            - DB_PASSWORD=${DB_PASSWORD:?}
         expose:
             - 9000
             - 3306
