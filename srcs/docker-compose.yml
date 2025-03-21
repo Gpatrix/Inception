@@ -1,36 +1,54 @@
 name: Inception
 
 services:
-    # nginx:
-    #     container_name: nginx
-    #     restart: always
-    #     build:
-    #         context: ./requirements/nginx
-    #         dockerfile: Dockerfile
-    #     networks:
-    #         - wordpress-nginx
-    #     ports:
-    #         - 443:443
+    nginx:
+        container_name: nginx
+        restart: on-failure
+        build:
+            context: ./requirements/nginx
+            dockerfile: Dockerfile
+        networks:
+            - wordpress-nginx
+        ports:
+            - 443:443
+        depends_on:
+            - wordpress
 
 
     wordpress:
         container_name: wordpress
-        # restart: always
+        restart: on-failure
         build:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
         networks:
             - wordpress-nginx
             - mariadb-wordpress
+        environment:
+            - ${DB_NAME:?}
+            - ${DB_USER:?}
+            - ${DB_PASSWORD:?}
+            - ${wp_AUTH_KEY:?}
+            - ${wp_SECURE_AUTH_KEY:?}
+            - ${wp_LOGGED_IN_KEY:?}
+            - ${wp_NONCE_KEY:?}
+            - ${wp_AUTH_SALT:?}
+            - ${wp_SECURE_AUTH_SALT:?}
+            - ${wp_LOGGED_IN_SALT:?}
+            - ${wp_NONCE_SALT:?}
+        env_file:
+            - .env
+        depends_on:
+                - mariadb
 
     mariadb:
         container_name: mariadb
-        # restart: always
+        restart: on-failure
         build:
             context: ./requirements/mariadb
             dockerfile: Dockerfile
         networks:
-            - wordpress-nginx
+            - mariadb-wordpress
         volumes:
             - db-data:/sys/fs/cgroup/
         environment:

@@ -3,7 +3,7 @@ compos_file = srcs/docker-compose.yml
 all: build up
 
 build:
-	docker compose -f $(compos_file) --parallel 3  build
+	docker compose -f $(compos_file) build
 
 up:
 	docker compose -f $(compos_file) up
