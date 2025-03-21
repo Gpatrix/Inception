@@ -7,6 +7,8 @@ services:
         build:
             context: ./requirements/nginx
             dockerfile: Dockerfile
+        volumes:
+            - vol_wordpress:/var/www/wordpress
         networks:
             - wordpress-nginx
         ports:
@@ -14,13 +16,26 @@ services:
         depends_on:
             - wordpress
 
-
     wordpress:
         container_name: wordpress
         restart: on-failure
+        volumes:
+            - vol_wordpress:/var/www/wordpress
         build:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
+            # args:
+            #     - DB_NAME = ${DB_NAME:?}
+            #     - DB_USER = DB_USER
+            #     - DB_PASSWORD = ${DB_PASSWORD:?}
+            #     - wp_AUTH_KEY = ${wp_AUTH_KEY:?}
+            #     - wp_SECURE_AUTH_KEY = ${wp_SECURE_AUTH_KEY:?}
+            #     - wp_LOGGED_IN_KEY = ${wp_LOGGED_IN_KEY:?}
+            #     - wp_NONCE_KEY = ${wp_NONCE_KEY:?}
+            #     - wp_AUTH_SALT = ${wp_AUTH_SALT:?}
+            #     - wp_SECURE_AUTH_SALT = ${wp_SECURE_AUTH_SALT:?}
+            #     - wp_LOGGED_IN_SALT = ${wp_LOGGED_IN_SALT:?}
+            #     - wp_NONCE_SALT = ${wp_NONCE_SALT:?}
         networks:
             - wordpress-nginx
             - mariadb-wordpress
@@ -40,6 +55,9 @@ services:
             - .env
         depends_on:
                 - mariadb
+        expose:
+            - 9000
+            - 3306
 
     mariadb:
         container_name: mariadb
@@ -47,16 +65,22 @@ services:
         build:
             context: ./requirements/mariadb
             dockerfile: Dockerfile
+            args:
+                - SQL_DATABASE = ${SQL_DATABASE:?}
+                - SQL_USER = ${SQL_USER:?}
+                - SQL_PASSWORD = ${SQL_PASSWORD:?}
         networks:
             - mariadb-wordpress
         volumes:
-            - db-data:/sys/fs/cgroup/
+            - vol_mariadb:/var/lib/mysql
         environment:
             - ${SQL_DATABASE:?}
             - ${SQL_USER:?}
             - ${SQL_PASSWORD:?}
         env_file:
             - .env
+        expose:
+            - 3306
 
 networks:
     wordpress-nginx:
@@ -65,4 +89,7 @@ networks:
         driver: bridge
 
 volumes:
-    db-data:
+    vol_wordpress:
+        driver: local
+    vol_mariadb:
+        driver: local

@@ -21,4 +21,13 @@ RUN rc-update add mariadb default
 
 EXPOSE 3306
 
-ENTRYPOINT ["sh", "table_create.sh"]
+ARG SQL_USER
+ARG SQL_DATABASE
+ARG SQL_PASSWORD
+
+RUN sh "table_create.sh"
+COPY ./conf/env_file .
+
+
+ENTRYPOINT ["mariadbd-safe"]
+# ENTRYPOINT ["sh", "table_create.sh"]
