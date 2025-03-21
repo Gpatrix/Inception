@@ -75,5 +75,13 @@ networks:
 volumes:
     vol_wordpress:
         driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/bob/Desktop/docker
     vol_mariadb:
         driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/bob/Desktop/docker

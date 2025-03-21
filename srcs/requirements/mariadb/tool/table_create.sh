@@ -16,4 +16,3 @@ if [ -f "/tools/init.sql" ]; then
 fi
 
 # rc-service mariadb restart
-wait
