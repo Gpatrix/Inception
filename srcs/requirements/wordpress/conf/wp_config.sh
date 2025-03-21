@@ -1,6 +1,9 @@
 #!/bin/sh
 
-sleep 6
+until mysql -h mariadb -u ${SQL_USER} -p${SQL_PASSWORD} -e "SELECT 1" > /dev/null 2>&1; do
+  echo "Waiting for MariaDB to be ready..."
+  sleep 5
+done
 
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     echo "Creating WordPress configuration file..."

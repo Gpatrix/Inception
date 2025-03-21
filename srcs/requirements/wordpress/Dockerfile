@@ -28,11 +28,11 @@ ARG wp_SECURE_AUTH_SALT
 ARG wp_LOGGED_IN_SALT
 ARG wp_NONCE_SALT
 
-COPY ./conf/php.ini /etc/php82/
+COPY ./conf/www.conf /etc/php83/php-fpm.d/www.conf
+# COPY ./conf/php.ini /etc/php82/
 COPY ./conf/wp_config.sh .
 # RUN sh wp_config.sh
 # RUN rm -f wp_config.sh
 
 EXPOSE 9000
-# ENTRYPOINT ["sh", "wp_config.sh"]
-ENTRYPOINT ["/usr/sbin/php-fpm83", "-F"]
+ENTRYPOINT ["sh", "wp_config.sh"]

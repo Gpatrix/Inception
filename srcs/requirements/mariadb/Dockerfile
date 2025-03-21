@@ -3,25 +3,24 @@ FROM alpine:3.20
 WORKDIR /usr/src/Inception
 
 RUN apk update
-RUN apk add mariadb mariadb-client --no-cache
-RUN apk add openrc --no-cache
+RUN apk add --no-cache mariadb mariadb-client gettext-envsubst 
+RUN apk add --no-cache openrc
 RUN mkdir -p /run/openrc/exclusive
 RUN touch /run/openrc/softlevel
 
 COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
-COPY ./conf/my.cnf /etc/my.cnf
-COPY ./conf/table_create.sh .
+COPY ./tool/table_create.sh .
+COPY ./tool/default.sql .
 
-RUN /etc/init.d/mariadb setup
+RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 RUN rc-update add mariadb default
 
 ARG SQL_USER
 ARG SQL_DATABASE
 ARG SQL_PASSWORD
 
-COPY ./conf/table_create.sh .
+RUN chmod +rw ./table_create.sh
 RUN sh ./table_create.sh
-RUN rm -f ./table_create.sh
 
 EXPOSE 3306
-ENTRYPOINT ["mariadbd"]
+ENTRYPOINT ["mariadb"]
