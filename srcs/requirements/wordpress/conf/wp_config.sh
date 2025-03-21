@@ -35,5 +35,3 @@ require_once ABSPATH . 'wp-settings.php';
 EOF
 
 mv ./wp-config.php ./wordpress/
-
-/usr/sbin/php-fpm82 -F

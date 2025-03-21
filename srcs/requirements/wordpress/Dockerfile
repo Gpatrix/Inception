@@ -12,10 +12,22 @@ RUN tar -xzvf ${WP_FILE}
 RUN rm -f ${WP_FILE}
 RUN chown -R root:root /var/www/wordpress
 
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASSWORD
+ARG wp_AUTH_KEY
+ARG wp_SECURE_AUTH_KEY
+ARG wp_LOGGED_IN_KEY
+ARG wp_NONCE_KEY
+ARG wp_AUTH_SALT
+ARG wp_SECURE_AUTH_SALT
+ARG wp_LOGGED_IN_SALT
+ARG wp_NONCE_SALT
+
 COPY ./conf/php.ini /etc/php82/
 COPY ./conf/wp_config.sh .
-RUN chmod +rx wp_config.sh
+RUN sh wp_config.sh
+RUN rm -f wp_config.sh
 
 EXPOSE 9000
-
-ENTRYPOINT ["sh", "wp_config.sh"]
+ENTRYPOINT ["/usr/sbin/php-fpm82", "-F"]

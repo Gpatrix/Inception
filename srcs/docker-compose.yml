@@ -24,35 +24,21 @@ services:
         build:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
-            # args:
-            #     - DB_NAME = ${DB_NAME:?}
-            #     - DB_USER = DB_USER
-            #     - DB_PASSWORD = ${DB_PASSWORD:?}
-            #     - wp_AUTH_KEY = ${wp_AUTH_KEY:?}
-            #     - wp_SECURE_AUTH_KEY = ${wp_SECURE_AUTH_KEY:?}
-            #     - wp_LOGGED_IN_KEY = ${wp_LOGGED_IN_KEY:?}
-            #     - wp_NONCE_KEY = ${wp_NONCE_KEY:?}
-            #     - wp_AUTH_SALT = ${wp_AUTH_SALT:?}
-            #     - wp_SECURE_AUTH_SALT = ${wp_SECURE_AUTH_SALT:?}
-            #     - wp_LOGGED_IN_SALT = ${wp_LOGGED_IN_SALT:?}
-            #     - wp_NONCE_SALT = ${wp_NONCE_SALT:?}
+            args:
+                - DB_NAME = ${DB_NAME:?}
+                - DB_USER = ${DB_USER:?}
+                - DB_PASSWORD = ${DB_PASSWORD:?}
+                - wp_AUTH_KEY = ${wp_AUTH_KEY:?}
+                - wp_SECURE_AUTH_KEY = ${wp_SECURE_AUTH_KEY:?}
+                - wp_LOGGED_IN_KEY = ${wp_LOGGED_IN_KEY:?}
+                - wp_NONCE_KEY = ${wp_NONCE_KEY:?}
+                - wp_AUTH_SALT = ${wp_AUTH_SALT:?}
+                - wp_SECURE_AUTH_SALT = ${wp_SECURE_AUTH_SALT:?}
+                - wp_LOGGED_IN_SALT = ${wp_LOGGED_IN_SALT:?}
+                - wp_NONCE_SALT = ${wp_NONCE_SALT:?}
         networks:
             - wordpress-nginx
             - mariadb-wordpress
-        environment:
-            - ${DB_NAME:?}
-            - ${DB_USER:?}
-            - ${DB_PASSWORD:?}
-            - ${wp_AUTH_KEY:?}
-            - ${wp_SECURE_AUTH_KEY:?}
-            - ${wp_LOGGED_IN_KEY:?}
-            - ${wp_NONCE_KEY:?}
-            - ${wp_AUTH_SALT:?}
-            - ${wp_SECURE_AUTH_SALT:?}
-            - ${wp_LOGGED_IN_SALT:?}
-            - ${wp_NONCE_SALT:?}
-        env_file:
-            - .env
         depends_on:
                 - mariadb
         expose:
@@ -66,19 +52,13 @@ services:
             context: ./requirements/mariadb
             dockerfile: Dockerfile
             args:
-                - SQL_DATABASE = ${SQL_DATABASE:?}
-                - SQL_USER = ${SQL_USER:?}
-                - SQL_PASSWORD = ${SQL_PASSWORD:?}
+                - SQL_DATABASE=${SQL_DATABASE:?}
+                - SQL_USER=${SQL_USER:?}
+                - SQL_PASSWORD=SQL_PASSWORD:?}
         networks:
             - mariadb-wordpress
         volumes:
             - vol_mariadb:/var/lib/mysql
-        environment:
-            - ${SQL_DATABASE:?}
-            - ${SQL_USER:?}
-            - ${SQL_PASSWORD:?}
-        env_file:
-            - .env
         expose:
             - 3306
 
