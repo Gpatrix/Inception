@@ -16,18 +16,6 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/bin/wp
 
-ARG wp_DB_NAME
-ARG wp_DB_USER
-ARG wp_DB_PASSWORD
-ARG wp_AUTH_KEY
-ARG wp_SECURE_AUTH_KEY
-ARG wp_LOGGED_IN_KEY
-ARG wp_NONCE_KEY
-ARG wp_AUTH_SALT
-ARG wp_SECURE_AUTH_SALT
-ARG wp_LOGGED_IN_SALT
-ARG wp_NONCE_SALT
-
 COPY ./conf/www.conf /etc/php83/php-fpm.d/www.conf
 # COPY ./conf/php.ini /etc/php82/
 COPY ./conf/wp_config.sh .

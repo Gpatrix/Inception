@@ -5,8 +5,6 @@ until mysql -h mariadb -u ${SQL_USER} -p${SQL_PASSWORD} -e "SELECT 1" > /dev/nul
   sleep 3
 done
 
-sleep infinity
-
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     echo "Creating WordPress configuration file..."
     # wp core download --path='/var/www/wordpress/'

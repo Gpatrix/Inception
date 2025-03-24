@@ -24,18 +24,6 @@ services:
         build:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
-            args:
-                - wp_DB_NAME=${wp_DB_NAME:?}
-                - wp_DB_USER=${wp_DB_USER:?}
-                - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
-                - wp_AUTH_KEY=${wp_AUTH_KEY:?}
-                - wp_SECURE_AUTH_KEY=${wp_SECURE_AUTH_KEY:?}
-                - wp_LOGGED_IN_KEY=${wp_LOGGED_IN_KEY:?}
-                - wp_NONCE_KEY=${wp_NONCE_KEY:?}
-                - wp_AUTH_SALT=${wp_AUTH_SALT:?}
-                - wp_SECURE_AUTH_SALT=${wp_SECURE_AUTH_SALT:?}
-                - wp_LOGGED_IN_SALT=${wp_LOGGED_IN_SALT:?}
-                - wp_NONCE_SALT=${wp_NONCE_SALT:?}
         networks:
             - inception
         depends_on:
@@ -44,6 +32,17 @@ services:
             - SQL_DATABASE=${SQL_DATABASE:?}
             - SQL_USER=${SQL_USER:?}
             - SQL_PASSWORD=${SQL_PASSWORD:?}
+            - wp_DB_NAME=${wp_DB_NAME:?}
+            - wp_DB_USER=${wp_DB_USER:?}
+            - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
+            - wp_AUTH_KEY=${wp_AUTH_KEY:?}
+            - wp_SECURE_AUTH_KEY=${wp_SECURE_AUTH_KEY:?}
+            - wp_LOGGED_IN_KEY=${wp_LOGGED_IN_KEY:?}
+            - wp_NONCE_KEY=${wp_NONCE_KEY:?}
+            - wp_AUTH_SALT=${wp_AUTH_SALT:?}
+            - wp_SECURE_AUTH_SALT=${wp_SECURE_AUTH_SALT:?}
+            - wp_LOGGED_IN_SALT=${wp_LOGGED_IN_SALT:?}
+            - wp_NONCE_SALT=${wp_NONCE_SALT:?}
         expose:
             - 9000
             - 3306
@@ -75,11 +74,10 @@ services:
         expose:
             - 3306
 
+# TODO do separate network
 networks:
     inception:
         driver: bridge
-    # inception:
-    #     driver: bridge
 
 volumes:
     vol_wordpress:
