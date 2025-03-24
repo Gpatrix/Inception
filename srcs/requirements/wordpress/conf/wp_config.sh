@@ -4,7 +4,7 @@
 until mysql -h mariadb    \
         -u ${wp_DB_USER}    \
         -p${wp_DB_PASSWORD} \
-        -e "SELECT 1"; do
+        -e "SELECT 1" > /dev/null 2>&1; do
   echo "Waiting for MariaDB to be ready..."
   sleep 3
 done
