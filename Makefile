@@ -2,6 +2,11 @@ compos_file = srcs/docker-compose.yml
 
 all: build up
 
+
+debug:
+	docker compose -f $(compos_file) build --progress=plain  --no-cache > docker.debug
+
+
 build:
 	docker compose -f $(compos_file) build
 
@@ -20,4 +25,4 @@ fclean purge: down
 
 re: down all
 
-.PHONY: build up stop down re purge fclean clean
+.PHONY: build up stop down re purge fclean clean debug
