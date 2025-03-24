@@ -10,7 +10,7 @@ services:
         volumes:
             - vol_wordpress:/var/www/wordpress
         networks:
-            - wordpress-nginx
+            - inception
         ports:
             - 443:443
         depends_on:
@@ -25,9 +25,9 @@ services:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
             args:
-                - DB_NAME=${DB_NAME:?}
-                - DB_USER=${DB_USER:?}
-                - DB_PASSWORD=${DB_PASSWORD:?}
+                - wp_DB_NAME=${wp_DB_NAME:?}
+                - wp_DB_USER=${wp_DB_USER:?}
+                - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
                 - wp_AUTH_KEY=${wp_AUTH_KEY:?}
                 - wp_SECURE_AUTH_KEY=${wp_SECURE_AUTH_KEY:?}
                 - wp_LOGGED_IN_KEY=${wp_LOGGED_IN_KEY:?}
@@ -37,14 +37,13 @@ services:
                 - wp_LOGGED_IN_SALT=${wp_LOGGED_IN_SALT:?}
                 - wp_NONCE_SALT=${wp_NONCE_SALT:?}
         networks:
-            - wordpress-nginx
-            - mariadb-wordpress
+            - inception
         depends_on:
                 - mariadb
         environment:
-            - DB_NAME=${DB_NAME:?}
-            - DB_USER=${DB_USER:?}
-            - DB_PASSWORD=${DB_PASSWORD:?}
+            - wp_DB_NAME=${wp_DB_NAME:?}
+            - wp_DB_USER=${wp_DB_USER:?}
+            - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
         expose:
             - 9000
             - 3306
@@ -58,19 +57,29 @@ services:
             args:
                 - SQL_DATABASE=${SQL_DATABASE:?}
                 - SQL_USER=${SQL_USER:?}
-                - SQL_PASSWORD=SQL_PASSWORD:?}
+                - SQL_PASSWORD=${SQL_PASSWORD:?}
+                - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD:?}
+                - wp_DB_USER=${wp_DB_USER:?}
+                - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
+        environment:
+                - SQL_DATABASE=${SQL_DATABASE:?}
+                - SQL_USER=${SQL_USER:?}
+                - SQL_PASSWORD=${SQL_PASSWORD:?}
+                - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD:?}
+                - wp_DB_USER=${wp_DB_USER:?}
+                - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
         networks:
-            - mariadb-wordpress
+            - inception
         volumes:
             - vol_mariadb:/var/lib/mysql
         expose:
             - 3306
 
 networks:
-    wordpress-nginx:
+    inception:
         driver: bridge
-    mariadb-wordpress:
-        driver: bridge
+    # inception:
+    #     driver: bridge
 
 volumes:
     vol_wordpress:

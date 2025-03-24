@@ -16,9 +16,9 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/bin/wp
 
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
+ARG wp_DB_NAME
+ARG wp_DB_USER
+ARG wp_DB_PASSWORD
 ARG wp_AUTH_KEY
 ARG wp_SECURE_AUTH_KEY
 ARG wp_LOGGED_IN_KEY
