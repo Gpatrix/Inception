@@ -2,7 +2,7 @@ FROM alpine:3.20
 
 WORKDIR /usr/src/Inception
 
-RUN apk update
+RUN apk update --no-cache
 RUN apk add nginx openssl --no-cache
 
 RUN mkdir -p /etc/nginx/ssl

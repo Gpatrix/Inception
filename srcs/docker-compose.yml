@@ -77,10 +77,10 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/bob/Desktop/docker/wordpress
+            device: ./volumes/wordpress
     vol_mariadb:
         driver: local
         driver_opts:
             type: none
             o: bind
-            device: /home/bob/Desktop/docker/mariadb
+            device: ./volumes/mariadb

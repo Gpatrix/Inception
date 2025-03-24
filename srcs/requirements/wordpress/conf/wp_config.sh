@@ -12,13 +12,13 @@ done
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     echo "Creating WordPress configuration file..."
     # wp core download --path='/var/www/wordpress/'
-    # wp core install --path='/var/www/wordpress/'
     wp config create --allow-root \
         --dbname="${wp_DB_NAME}" \
         --dbuser="${wp_DB_USER}" \
         --dbpass="${wp_DB_PASSWORD}" \
         --dbhost=mariadb:3306 \
         --path='/var/www/wordpress/'
+    wp core install --path='/var/www/wordpress/'
 else
     echo "WordPress configuration file already exists"
 fi
