@@ -1,5 +1,4 @@
 #!/bin/sh
-#  > /dev/null 2>&1
 
 until mysql -h mariadb    \
         -u ${wp_DB_USER}    \
@@ -11,14 +10,19 @@ done
 
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     echo "Creating WordPress configuration file..."
-    # wp core download --path='/var/www/wordpress/'
     wp config create --allow-root \
-        --dbname="${wp_DB_NAME}" \
-        --dbuser="${wp_DB_USER}" \
-        --dbpass="${wp_DB_PASSWORD}" \
-        --dbhost=mariadb:3306 \
-        --path='/var/www/wordpress/'
-    wp core install --path='/var/www/wordpress/'
+                     --dbname="${wp_DB_NAME}" \
+                     --dbuser="${wp_DB_USER}" \
+                     --dbpass="${wp_DB_PASSWORD}" \
+                     --dbhost=mariadb:3306 \
+                     --path='/var/www/wordpress/'
+
+    wp core install --url="lchauvet.42.fr" \
+                    --title="Inception" \
+                    --admin_user="${wp_DB_USER}" \
+                    --admin_password="${wp_DB_PASSWORD}" \
+                    --admin_email="lchauvet@student.42lehavre.fr"  \
+                    --path='/var/www/wordpress/'
 else
     echo "WordPress configuration file already exists"
 fi
