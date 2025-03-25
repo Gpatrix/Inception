@@ -23,6 +23,7 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
                     --admin_password="${wp_DB_PASSWORD}" \
                     --admin_email="lchauvet@student.42lehavre.fr"  \
                     --path='/var/www/wordpress/'
+    wp theme activate twentytwentythree --path=/var/www/wordpress
 else
     echo "WordPress configuration file already exists"
 fi
