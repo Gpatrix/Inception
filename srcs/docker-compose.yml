@@ -65,10 +65,7 @@ services:
         expose:
             - 3306
 
-# TODO do separate network
 networks:
-    inception:
-        driver: bridge
     inception:
         driver: bridge
 
