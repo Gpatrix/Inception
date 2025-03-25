@@ -32,7 +32,6 @@ services:
             - SQL_DATABASE=${SQL_DATABASE:?}
             - SQL_USER=${SQL_USER:?}
             - SQL_PASSWORD=${SQL_PASSWORD:?}
-            - wp_DB_NAME=${wp_DB_NAME:?}
             - wp_DB_USER=${wp_DB_USER:?}
             - wp_DB_PASSWORD=${wp_DB_PASSWORD:?}
         expose:

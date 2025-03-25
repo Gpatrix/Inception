@@ -11,7 +11,7 @@ done
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     echo "Creating WordPress configuration file..."
     wp config create --allow-root \
-                     --dbname="${wp_DB_NAME}" \
+                     --dbname="${SQL_DATABASE}" \
                      --dbuser="${wp_DB_USER}" \
                      --dbpass="${wp_DB_PASSWORD}" \
                      --dbhost=mariadb:3306 \
