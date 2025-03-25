@@ -19,7 +19,7 @@ RUN mv wp-cli.phar /usr/bin/wp
 
 COPY ./conf/www.conf /etc/php83/php-fpm.d/www.conf
 COPY ./conf/php.ini /etc/php82/
-COPY ./conf/wp_config.sh .
+COPY ./tool/wp_config.sh .
 
 EXPOSE 9000
 ENTRYPOINT ["sh", "wp_config.sh"]
