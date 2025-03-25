@@ -9,8 +9,6 @@ RUN mkdir -p /run/openrc/exclusive
 RUN touch /run/openrc/softlevel
 
 COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
-COPY ./tool/table_create.sh .
-COPY ./tool/default.sql .
 
 ARG SQL_USER
 
@@ -25,6 +23,8 @@ RUN rc-update add mariadb default
 ARG SQL_DATABASE
 ARG SQL_PASSWORD
 
+COPY ./tool/table_create.sh .
+COPY ./tool/default.sql .
 RUN chmod +x ./table_create.sh
 
 

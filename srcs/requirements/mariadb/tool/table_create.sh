@@ -14,4 +14,5 @@ if [ -f "default.sql" ]; then
 	envsubst < default.sql | mariadb
 fi
 
-sleep infinity
+# TODO to change
+wait
