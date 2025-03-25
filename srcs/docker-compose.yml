@@ -69,6 +69,8 @@ services:
 networks:
     inception:
         driver: bridge
+    inception:
+        driver: bridge
 
 volumes:
     vol_wordpress:

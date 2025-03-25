@@ -27,7 +27,6 @@ COPY ./tool/table_create.sh .
 COPY ./tool/default.sql .
 RUN chmod +x ./table_create.sh
 
-
 USER ${SQL_USER}
 
 EXPOSE 3306
