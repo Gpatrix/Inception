@@ -8,8 +8,8 @@ debug:
 
 
 build:
-	mkdir -p ./srcs/volumes/mariadb
-	mkdir -p ./srcs/volumes/wordpress
+	mkdir -p /home/lchauvet/data/mariadb
+	mkdir -p /home/lchauvet/data/wordpress
 	docker compose -f $(compos_file) build
 
 up:
@@ -24,7 +24,8 @@ clean down:
 fclean purge: down
 	docker system prune --all --force --volumes
 	docker volume prune -a -f
-	rm -rf ./srcs/volumes
+	rm -rf /home/lchauvet/data/mariadb
+	rm -rf /home/lchauvet/data/wordpress
 
 re: down all
 

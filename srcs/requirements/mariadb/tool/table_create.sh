@@ -1,10 +1,9 @@
 #!/bin/sh
 
 set -e
+trap "exit" TERM
 
 /usr/bin/mariadbd-safe --datadir=/var/lib/mysql &
-
-mariadb_pid=$!
 
 until mariadb-admin ping --silent; do
 	echo "Waiting for MariaDB to be ready..."
@@ -20,7 +19,4 @@ else
 	echo "Database already initialized."
 fi
 
-echo "SHUTDOWN;" | mariadb
-sleep 2
-
-exec /usr/bin/mariadbd-safe --datadir=/var/lib/mysql
+wait

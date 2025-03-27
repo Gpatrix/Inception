@@ -1,6 +1,6 @@
 #!/bin/sh
 
-until mysql -h mariadb    \
+until mariadb -h mariadb    \
         -u ${wp_DB_USER}    \
         -p${wp_DB_PASSWORD} \
         -e "SELECT 1" > /dev/null 2>&1; do

@@ -1,9 +1,9 @@
-FROM alpine:3.20
+FROM alpine:3.20.6
 
 WORKDIR /var/www
 
 RUN apk update --no-cache
-RUN apk add wget php83 php83-fpm php83-mysqli php83-iconv  php-phar openssl mysql-client --no-cache
+RUN apk add wget php83 php83-fpm php83-mysqli php83-iconv php-phar openssl mariadb-client --no-cache
 
 ARG WP_FILE="wordpress-6.7.2.tar.gz"
 
